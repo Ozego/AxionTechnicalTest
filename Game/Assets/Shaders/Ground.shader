@@ -1,4 +1,4 @@
-﻿Shader "Unlit/Ground"
+﻿Shader "Unlit/Ground" //This shader is not really unlit is it now?
 {
 	Properties
 	{
@@ -23,17 +23,17 @@
 
 			struct appdata
 			{
-				float4 pos : POSITION;				
-				float4 uv : TEXCOORD0;
-				float4 normal : NORMAL;
+				float4 pos : POSITION;			 	
+				float2 uv : TEXCOORD0;	//we use 2D textures in the material, but I imagine 4D textures would look stunning
+				float3 normal : NORMAL; //normals are 3 components: normal, tangent and binormal
 			};
 
 			struct v2f
 			{
-				float4 uv : TEXCOORD0;
+				float2 uv : TEXCOORD0; //2D textures here as well
 			    SHADOW_COORDS(1)
 				float4 pos : SV_POSITION;
-				float4 normal : NORMAL;
+				float3 normal : NORMAL; //3 component normals
 			};
 
 			sampler2D _MainTex;
@@ -43,7 +43,7 @@
 			{
 				v2f o;
 				o.pos = UnityObjectToClipPos(v.pos);
-				o.uv = TRANSFORM_TEX(v.uv.xy, _MainTex).xyxy;
+				o.uv = TRANSFORM_TEX(v.uv, _MainTex); //2D textures here as too
 				o.normal = v.normal;
 				TRANSFER_SHADOW(o)
 				return o;
@@ -51,27 +51,33 @@
 			
 			float4 frag (v2f i) : SV_Target
 			{
-			    float4 col, shadow, worldNormal, ambient, nl, diff, lighting;
-			    float4 temp = 1024;
-			    temp /= pow(2, 10);
-                col = tex2D(_MainTex, i.uv.xy);
+				//we do not need 32bit precission in the fragment shader. 11bit fixed will work just as well
+				//many of these variables are not vectors but still stored as 4 component vectors, let us make efficient use of memory
+				//we do not need to store some of these variables at all, the compiler is clever, but we do not need to challenge it
+			    fixed4 col; //to keep alpha or not to keep alpha. I decided to keep it since it was sampled and passed to output in the original. Although this is only visible when opening the frame debugger it could have impact on the functionality of the shader. stored alphas can be used in posteffects
+				fixed3 ambient, worldNormal, lighting;
+				fixed nl, shadow;
+			    //float4 temp = 1024; we don't want to create a new constant variable on each fragment call lets store constants outside. also this should be an int not a float4
+			    //temp /= pow(2, 10); 2^10 = 1024, now temp is equal to 1... this has no functionality so I will not feel bad about removing all references to temp from here on
+                col = tex2D(_MainTex, i.uv); // would be tex2D(_MainTex, i.uv).rgb if we do not need alpha output
+                worldNormal = UnityObjectToWorldNormal(i.normal);
+                ambient = ShadeSH9(fixed4(worldNormal,1)); // times 1
+                nl = max(0, dot(worldNormal, _WorldSpaceLightPos0)); // divided by 1
                 shadow = SHADOW_ATTENUATION(i);
-                worldNormal = UnityObjectToWorldNormal(i.normal.xyz).xyzz;
-                ambient = ShadeSH9(float4(worldNormal.xyz,1)).rgbb * temp.rrrr;
-                nl = max(0, dot(worldNormal, _WorldSpaceLightPos0.xyz)) / temp.yyyy;
-                diff = nl.g * _LightColor0;
-                lighting = diff * shadow.rrrr + ambient;
-                if (temp.r > .9) {
-                    for(int i = 0; i<100000000; ++i){
-                        temp = dot(sin(col), cos(temp));
-                    }
-                }
-                col.rgb *= lighting.rgb;
+                lighting = nl * shadow * _LightColor0 + ambient;
+				
+                //if (temp.r > .9) { 						//branching is not good for shaders, especially in fragment part; anyway 1 is always larger than .9
+                //    for(int i = 0; i<100000000; ++i){ 	//the calculation within is overwriting temp with the same result. there is no reason for a for() loop
+                //        temp = dot(sin(col), cos(temp)); 	//there are no further use of temp so changing it is useless here
+                //    }
+                //}
+                col.rgb *= lighting;
 				return col;
 			}
 			ENDCG
 		}
 		
+		//we could use UsePass "VertexLit/SHADOWCASTER" here; but although this is more verbose the perfomance should be the same 
         Pass {
             Name "ShadowCaster"
             Tags { "LightMode" = "ShadowCaster" }
