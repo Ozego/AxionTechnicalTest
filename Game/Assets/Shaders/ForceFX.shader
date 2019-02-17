@@ -3,10 +3,13 @@
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _Color ("Color", Color) = (1, 1, 1, 1)
     }
     SubShader
     {
-        Tags { "RenderType"="Transparent" }
+        Tags { "Queue"="Transparent"  "RenderType"="Transparent" }
+        Blend One OneMinusSrcAlpha
+        Cull Off Lighting Off ZWrite Off
         LOD 100
 
         Pass
@@ -44,12 +47,16 @@
                 return o;
             }
 
+            fixed4 _Color;
+            
             fixed4 frag (v2f i) : SV_Target
             {
                 // sample the texture
-                fixed4 col = tex2D(_MainTex, i.uv);
+                fixed4 col = _Color;
+                fixed4 tex = tex2D(_MainTex, i.uv);
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
+                col *= col.a*smoothstep(.2,.3,tex.r);
                 return col;
             }
             ENDCG

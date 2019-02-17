@@ -12,4 +12,5 @@ public class GameController : MonoBehaviour
         sphereArray.SetTempo(BPM);
         gameGUI.BPM = BPM;
     }
+
 }

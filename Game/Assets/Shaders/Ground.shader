@@ -49,7 +49,7 @@
 				return o;
 			}
 			
-			float4 frag (v2f i) : SV_Target
+			fixed4 frag (v2f i) : SV_Target
 			{
 				//we do not need 32bit precission in the fragment shader. 11bit fixed will work just as well
 				//many of these variables are not vectors but still stored as 4 component vectors, let us make efficient use of memory
@@ -101,8 +101,8 @@
                 TRANSFER_SHADOW_CASTER_NORMALOFFSET(o)
                 return o;
             }
-            
-            float4 frag( v2f i ) : SV_Target
+            //except for fragment shader precission
+            fixed4 frag( v2f i ) : SV_Target
             {
                 SHADOW_CASTER_FRAGMENT(i)
             }
