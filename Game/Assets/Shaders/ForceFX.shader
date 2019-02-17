@@ -4,6 +4,7 @@
     {
         _MainTex ("Texture", 2D) = "white" {}
         _Color ("Color", Color) = (1, 1, 1, 1)
+        _t ("Animation Time", float) = 0
     }
     SubShader
     {
@@ -37,6 +38,7 @@
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
+            
 
             v2f vert (appdata v)
             {
@@ -48,7 +50,8 @@
             }
 
             fixed4 _Color;
-            
+            float _t;
+
             fixed4 frag (v2f i) : SV_Target
             {
                 // sample the texture
@@ -56,7 +59,7 @@
                 fixed4 tex = tex2D(_MainTex, i.uv);
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
-                col *= col.a*smoothstep(.2,.3,tex.r);
+                col *= col.a*smoothstep(1-_t-.05,1-_t+.05,tex.r);
                 return col;
             }
             ENDCG
