@@ -61,13 +61,16 @@
      <Compile Include="Assets\Lib\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
      <Compile Include="Assets\Lib\DOTween\Modules\DOTweenModuleUtils.cs" />
      <Compile Include="Assets\Scripts\ArrayAnimator.cs" />
+     <Compile Include="Assets\Scripts\EffectAnimator.cs" />
      <Compile Include="Assets\Scripts\GameCamera.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\GameGUI.cs" />
+     <Compile Include="Assets\Scripts\ImpactAnimator.cs" />
      <None Include="Assets\Shaders\TestUnlitShader.shader" />
      <None Include="Assets\Lib\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
      <None Include="Assets\Lib\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
      <None Include="Assets\Lib\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
+     <None Include="Assets\Shaders\ForceFX.shader" />
      <None Include="Assets\Lib\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
      <None Include="Assets\Lib\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
      <None Include="Assets\Lib\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />

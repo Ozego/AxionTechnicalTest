@@ -122,6 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 72730649}
   - component: {fileID: 72730648}
+  - component: {fileID: 72730647}
   m_Layer: 0
   m_Name: JumpingSphere
   m_TagString: Untagged
@@ -129,6 +130,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &72730647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 72730646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 746df3b7afd227b4089fda7e5e10a4ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &72730648
 Animator:
   serializedVersion: 3
@@ -173,6 +186,7 @@ GameObject:
   m_Component:
   - component: {fileID: 73177281}
   - component: {fileID: 73177280}
+  - component: {fileID: 73177279}
   m_Layer: 0
   m_Name: JumpingSphere
   m_TagString: Untagged
@@ -180,6 +194,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &73177279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73177278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 746df3b7afd227b4089fda7e5e10a4ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &73177280
 Animator:
   serializedVersion: 3
@@ -640,6 +666,7 @@ GameObject:
   m_Component:
   - component: {fileID: 230341837}
   - component: {fileID: 230341836}
+  - component: {fileID: 230341835}
   m_Layer: 0
   m_Name: JumpingSphere
   m_TagString: Untagged
@@ -647,6 +674,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &230341835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 230341834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 746df3b7afd227b4089fda7e5e10a4ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &230341836
 Animator:
   serializedVersion: 3
@@ -691,6 +730,7 @@ GameObject:
   m_Component:
   - component: {fileID: 240098898}
   - component: {fileID: 240098897}
+  - component: {fileID: 240098899}
   m_Layer: 0
   m_Name: JumpingSphere
   m_TagString: Untagged
@@ -732,6 +772,18 @@ Transform:
   m_Father: {fileID: 2104276098}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &240098899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 240098896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 746df3b7afd227b4089fda7e5e10a4ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &243233762
 GameObject:
   m_ObjectHideFlags: 0
@@ -921,7 +973,7 @@ MonoBehaviour:
   gameCamera: {fileID: 574987235}
   gameGUI: {fileID: 128761235}
   sphereArray: {fileID: 2104276097}
-  BPM: 32
+  BPM: 31.75
 --- !u!1 &494643303
 GameObject:
   m_ObjectHideFlags: 0
@@ -932,6 +984,7 @@ GameObject:
   m_Component:
   - component: {fileID: 494643305}
   - component: {fileID: 494643304}
+  - component: {fileID: 494643306}
   m_Layer: 0
   m_Name: JumpingSphere
   m_TagString: Untagged
@@ -973,6 +1026,18 @@ Transform:
   m_Father: {fileID: 2104276098}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &494643306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494643303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 746df3b7afd227b4089fda7e5e10a4ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &574987230
 GameObject:
   m_ObjectHideFlags: 0
@@ -1151,6 +1216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 733711799}
   - component: {fileID: 733711798}
+  - component: {fileID: 733711797}
   m_Layer: 0
   m_Name: JumpingSphere
   m_TagString: Untagged
@@ -1158,6 +1224,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &733711797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733711796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 746df3b7afd227b4089fda7e5e10a4ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &733711798
 Animator:
   serializedVersion: 3
@@ -1449,6 +1527,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1151113194}
   - component: {fileID: 1151113193}
+  - component: {fileID: 1151113195}
   m_Layer: 0
   m_Name: JumpingSphere
   m_TagString: Untagged
@@ -1490,6 +1569,18 @@ Transform:
   m_Father: {fileID: 2104276098}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1151113195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1151113192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 746df3b7afd227b4089fda7e5e10a4ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1329744462
 GameObject:
   m_ObjectHideFlags: 0
@@ -1678,6 +1769,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1454671782}
   - component: {fileID: 1454671781}
+  - component: {fileID: 1454671779}
   m_Layer: 0
   m_Name: JumpingSphere
   m_TagString: Untagged
@@ -1685,6 +1777,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1454671779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454671778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 746df3b7afd227b4089fda7e5e10a4ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &1454671781
 Animator:
   serializedVersion: 3
@@ -2024,6 +2128,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2036242872}
   - component: {fileID: 2036242871}
+  - component: {fileID: 2036242869}
   m_Layer: 0
   m_Name: JumpingSphere
   m_TagString: Untagged
@@ -2031,6 +2136,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &2036242869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2036242868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 746df3b7afd227b4089fda7e5e10a4ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &2036242871
 Animator:
   serializedVersion: 3
