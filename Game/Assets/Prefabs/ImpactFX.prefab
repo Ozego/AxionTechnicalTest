@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2776476364825227489}
   - component: {fileID: 1701913926379621556}
   - component: {fileID: 792409122135863715}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -975,7 +975,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 16
+        scalar: 8
         minScalar: 30
         maxCurve:
           serializedVersion: 2
