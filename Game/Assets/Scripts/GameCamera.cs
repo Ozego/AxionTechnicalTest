@@ -9,6 +9,6 @@ public class GameCamera : MonoBehaviour
     }
 
     void Update(){
-        
+        transform.LookAt(Vector3.up);
     }
 }
