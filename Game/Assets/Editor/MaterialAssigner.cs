@@ -4,31 +4,54 @@ using System.Linq;
 using UnityEngine;
 using UnityEditor;
 
-class MaterialAssigner : EditorWindow {
+class MaterialAssigner : EditorWindow{
     [MenuItem("Tools/Ozego/MaterialAssigner")]
-    public static void  ShowWindow () {
+    public static void ShowWindow(){
         EditorWindow.GetWindow(typeof(MaterialAssigner));
     }
 
     string searchQuery = "Sphere";
-    public string[] Strings = { "Larry", "Curly", "Moe" };
-    Material[] materials;
-    
-    void OnGUI () {
-        GUILayout.Label ("Material Assigner", EditorStyles.boldLabel);
+    Material material;
+    Editor materialEditor;
+
+    void OnGUI(){
+
+        GUILayout.Label("Material Assigner", EditorStyles.boldLabel);
         searchQuery = EditorGUILayout.TextField("Prefab name:", searchQuery);
-        
-        // "target" can be any class derrived from ScriptableObject 
-         // (could be EditorWindow, MonoBehaviour, etc)
-         ScriptableObject target = this;
-         SerializedObject so = new SerializedObject(target);
-         SerializedProperty stringsProperty = so.FindProperty("Strings");
- 
-         EditorGUILayout.PropertyField(stringsProperty, true); // True means show children
-         so.ApplyModifiedProperties(); // Remember to apply modified properties
-        
+
+        EditorGUI.BeginChangeCheck();
+        material = EditorGUILayout.ObjectField("Material:",material, typeof(Material),true) as Material;
+        if (EditorGUI.EndChangeCheck()){
+            materialEditor = Editor.CreateEditor(material);
+        }
+        if (material != null){
+            if (materialEditor == null){
+                materialEditor = Editor.CreateEditor(material);
+            }
+            materialEditor.OnPreviewGUI(GUILayoutUtility.GetRect(300, 300), EditorStyles.toolbar);
+        }
+
+        if (GUILayout.Button("Replace Materials")){
+            GameObject[] gameObjects = FindObjectsByName(searchQuery);
+            if (gameObjects == null) {
+                EditorUtility.DisplayDialog("No GameObjects found","Try another search term","OK");
+            } 
+            else if (material == null){
+                EditorUtility.DisplayDialog("No Material Selected","Please select a material to be assigned","OK");
+            } 
+            else {  
+                foreach (var o in gameObjects){
+                    var mr = o.GetComponent<MeshRenderer>();
+                    if(mr!=null){
+                        mr.material = material;
+                        //TODO: Undo functionality
+                    }
+                }
+                
+            }
+        }
     }
     private static GameObject[] FindObjectsByName(string SearchQuery){
-        return (GameObject[])Resources.FindObjectsOfTypeAll<GameObject>().Where(o => o.name == SearchQuery);
+        return GameObject.FindObjectsOfType<GameObject>().Where(o => o.name == SearchQuery).ToArray();
     }
 }
