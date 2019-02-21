@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+//Simplified bezier system derived from tutorial by Catlike Coding.
 [CustomEditor(typeof(Line))]
 public class LineInspector : Editor{
     private void OnSceneGUI(){

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Simplified bezier system derived from tutorial by Catlike Coding.
 public class Bezier{
     public static Vector3 GetPoint(Vector3 p0,Vector3 p1,Vector3 p2,float t){
         t = Mathf.Clamp01(t);

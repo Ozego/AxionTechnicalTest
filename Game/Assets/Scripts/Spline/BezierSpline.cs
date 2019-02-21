@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 //Simplified bezier system derived from tutorial by Catlike Coding.
-public class BezierCurve : MonoBehaviour{
+public class BezierSpline : MonoBehaviour{
     public Vector3[] points;
     public void Reset(){
         points =  new Vector3[]{
@@ -21,5 +22,15 @@ public class BezierCurve : MonoBehaviour{
     }
     public Vector3 GetDirection(float t){
         return GetVelocity(t).normalized;
+    }
+    public void AddCurve(){
+        Vector3 point = points[points.Length-1];
+        Array.Resize(ref points, points.Length+3);
+        point.x+=1f;
+        points[points.Length-3]=point;
+        point.x+=1f;
+        points[points.Length-2]=point;
+        point.x+=1f;
+        points[points.Length-1]=point;
     }
 }
