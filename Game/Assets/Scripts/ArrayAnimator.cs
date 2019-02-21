@@ -21,7 +21,7 @@ public class ArrayAnimator : MonoBehaviour{
             default: Debug.Log("DelayType not found."); break;
         }
     }
-    // I like to work to music so I did a small script to sync the animations to whatever I am listening to.
+    // Syncronises the array animation delay to specified tempoL
     // TODO: Tap to bpm functionality
     public void SetTempo(float BPM) {
         foreach (var animation in animations){
