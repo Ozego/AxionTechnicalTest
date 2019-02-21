@@ -9,8 +9,10 @@
     {
         Tags { "RenderType"="Opaque" }
         LOD 100
-        //This is the missing line
+        //Although an entire shadowpass is missing the entire pass can be referenced from the ShaderLab library with a usepass
+        //Custom Usepasses can be made with SubShaders and be applied in similar manner to keep dependency amongst shaders
         UsePass "VertexLit/SHADOWCASTER"
+        
         Pass
         {
             CGPROGRAM
