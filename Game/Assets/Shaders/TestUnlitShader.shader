@@ -52,8 +52,9 @@
             
             fixed4 frag (v2f i) : SV_Target
             {
-                // sample the texture
-                fixed4 col = tex2D(_MainTex, float2(i.uv.x+_Time.y,i.uv.y+_SinTime.y));//don't mind this. I can't help it; you made me open the shader. You can't have bouncing checkered spheres in a demo without some animation
+                // sample the texture with UV animation
+                //don't mind this. I can't help it; you made me open the shader. You can't have bouncing checkered spheres in a demo without some animation
+                fixed4 col = tex2D(_MainTex, float2(i.uv.x+_Time.y,i.uv.y+_SinTime.y));
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 return col * _Color;
