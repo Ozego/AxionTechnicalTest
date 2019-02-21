@@ -1,13 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameCamera : MonoBehaviour
 {
-    void Awake(){
-        
-    }
-
+    // Look at pivot point (0,1,0)
     void Update(){
         transform.LookAt(Vector3.up);
     }

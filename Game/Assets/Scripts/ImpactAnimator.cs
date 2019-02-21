@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class ImpactAnimator : MonoBehaviour
-{
-    
+public class ImpactAnimator : MonoBehaviour{
+    //Animation Event function for selfdestruction
     void kill(){
         Destroy(transform.gameObject);
     }
