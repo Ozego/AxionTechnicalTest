@@ -37,7 +37,7 @@ public class Bezier{
             3f*t*t*(p3-p2);
     }
 }
-
+//Control Point Constraint Modes
 public enum BezierControlPointMode{
     Free, 
     Aligned, 

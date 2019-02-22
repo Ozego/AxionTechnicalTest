@@ -5,12 +5,22 @@ using System;
 //Editor for spline creation
 [CustomEditor(typeof(BezierSpline))]
 public class BezierSplineInspector : Editor{
+    //GUI parameters
+    private const float bezierWidth = 10f;
+    private const float handleSize=0.2f;
+    private const float pickSize=0.1f;
+    private int selectedIndex=-1;
+    private static Color[] modeColors={
+        new Color(.5f,1f,0f,1f),
+        new Color(1f,0f,.75f,1f),
+        new Color(1f,.5f,0f,1f)
+    };
+
     //Target spline and its corrosponding transform and rotation
     private BezierSpline spline;
     private Transform handleTransform;
     private Quaternion handleRotation;
     
-    private const float directionScale = 10f;
     //Editor Inspector GUI
     public override void OnInspectorGUI(){
         //Target spline
@@ -60,17 +70,16 @@ public class BezierSplineInspector : Editor{
             Vector3 p2 = ShowPoint(i+1);
             Vector3 p3 = ShowPoint(i+2);
             //Draw bezier lines
-            Handles.color = new Color(0f,1f,.75f,.5f);
-            Handles.DrawLine(p0,p1);
-            Handles.DrawLine(p2,p3);
-            Handles.DrawBezier(p0,p3,p1,p2,Color.white, null, directionScale);
+            
+            Handles.color = modeColors[(int)spline.GetControlPointMode(i)];
+            Handles.DrawAAPolyLine(bezierWidth,new Vector3[]{p0,p1});
+            Handles.color = modeColors[(int)spline.GetControlPointMode(i+1)];
+            Handles.DrawAAPolyLine(bezierWidth,new Vector3[]{p2,p3});
+            Handles.DrawBezier(p0,p3,p1,p2,Color.white, null, bezierWidth);
             p0=p3;
         }
     }
-    //Handle parameters
-    private const float handleSize=0.15f;
-    private const float pickSize=0.1f;
-    private int selectedIndex=-1;
+
     //Handle scene editor draw function
     private Vector3 ShowPoint(int index){
         //Target vertex
@@ -78,7 +87,7 @@ public class BezierSplineInspector : Editor{
         //Read scene editor handle size
         float size = HandleUtility.GetHandleSize(point);
         //Set handle color
-        Handles.color=new Color(0f,1f,.75f,.5f);
+        Handles.color=modeColors[(int)spline.GetControlPointMode(index)];
         //Draw vertex
         if(Handles.Button(point,handleRotation,size*handleSize,size*pickSize,Handles.SphereHandleCap)){
             selectedIndex=index;
