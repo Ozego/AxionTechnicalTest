@@ -26,16 +26,19 @@ public class PerformanceManager : MonoBehaviour
     //Coroutine for asyncronous perfomance checks
     private IEnumerator DelayedPerformanceChecks(){
         //High Quality Pass
+        Debug.Log("High Quality Set");
         SetHighQuality();
         yield return new WaitForSeconds(CheckInterval);
         //Check performance of high quality
         if(CheckIfPerformancePoor()){
             //Medium Quality Pass
+            Debug.Log("Performance Poor\nMedium Quality Set");
             SetMediumQuality();
             //Check performance of medium quality
             yield return new WaitForSeconds(CheckInterval);
             if(CheckIfPerformancePoor()){
                 //Low Quality Pass
+                Debug.Log("Performance Poor\nLow Quality Set");
                 SetLowQuality();
             }
         }
@@ -43,9 +46,11 @@ public class PerformanceManager : MonoBehaviour
         Destroy(gameObject);
         yield break;
     }
-    //Checks fps against target
+    //Checks fps against target benchmark
     private bool CheckIfPerformancePoor(){
-        return 1f/(TargetFramerate-SampleMargin)>1f/Time.smoothDeltaTime;
+        float benchFPS = TargetFramerate-SampleMargin;
+        float sampledFPS = 1f/Time.smoothDeltaTime;
+        return benchFPS>sampledFPS;
     }
     //Method for setting high quality
     private void SetHighQuality(){
