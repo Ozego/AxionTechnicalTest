@@ -11,9 +11,9 @@ public class BezierSplineInspector : Editor{
     private const float pickSize=0.1f;
     private int selectedIndex=-1;
     private static Color[] modeColors={
+        new Color(1f,.5f,0f,1f),
         new Color(.5f,1f,0f,1f),
-        new Color(1f,0f,.75f,1f),
-        new Color(1f,.5f,0f,1f)
+        new Color(1f,0f,.75f,1f)
     };
 
     //Target spline and its corrosponding transform and rotation
@@ -25,10 +25,18 @@ public class BezierSplineInspector : Editor{
     public override void OnInspectorGUI(){
         //Target spline
         spline = target as BezierSpline;
+        //Loop toggle
+        EditorGUI.BeginChangeCheck();
+        bool loop = EditorGUILayout.Toggle("Loop", spline.Loop);
+        if (EditorGUI.EndChangeCheck()) {
+            Undo.RecordObject(spline, "Toggle Loop");
+            EditorUtility.SetDirty(spline);
+            spline.Loop = loop;
+        }
+        //Draw inspector for selected point
         if(selectedIndex>=0&&selectedIndex<spline.ControlPointCount){
             DrawSelectedPointInspector();
         }
-
         //Add curve button
         if(GUILayout.Button("Add Curve")){
             //Undo functionality
@@ -39,7 +47,7 @@ public class BezierSplineInspector : Editor{
     }
     //Editor Inspector GUI for selected vertex control point
     private void DrawSelectedPointInspector(){
-        GUILayout.Label("Selected Point");
+        GUILayout.Label("Selected Point\nIndex: "+selectedIndex);
         EditorGUI.BeginChangeCheck();
         Vector3 point = EditorGUILayout.Vector3Field("Position",spline.GetControlPoint(selectedIndex));
         if(EditorGUI.EndChangeCheck()){
@@ -84,8 +92,10 @@ public class BezierSplineInspector : Editor{
     private Vector3 ShowPoint(int index){
         //Target vertex
         Vector3 point = handleTransform.TransformPoint(spline.GetControlPoint(index));
-        //Read scene editor handle size
+        //Read scene editor handle size and apply scale based on point type
         float size = HandleUtility.GetHandleSize(point);
+        if(index==0) size*=1.5f;
+        if(index%3!=0) size*=.5f;
         //Set handle color
         Handles.color=modeColors[(int)spline.GetControlPointMode(index)];
         //Draw vertex

@@ -17,8 +17,36 @@ public class BezierSpline : MonoBehaviour{
     }
     //Set control point vertex
     public void SetControlPoint(int index, Vector3 point){
+        if(index%3==0){
+            //vector from old to new position
+            Vector3 delta=point-points[index];
+            if(loop){
+                //link last vertex to first vertex if looped
+                if(index == 0){
+                    points[1] += delta;
+                    points[points.Length-2]+=delta;
+                    points[points.Length-1]=point;
+                }
+                //link first vertex to last vertex if looped
+                else if(index==points.Length-1){
+                    points[0]=point;
+                    points[1]+=delta;
+                    points[index-1]+=delta;
+                }
+                //non linked vertexes
+                else{
+                    points[index-1]+=delta;
+                    points[index+1]+=delta;
+                }
+            }
+            else{
+                //move adjecent control points with middle point
+                if(index>0) points[index-1]+=delta;
+                if(index+1<points.Length) points[index+1]+=delta;
+            }
+        }
         points[index]=point;
-        EnforceMode(index);
+        EnforceConstraint(index);
     }
     //Control point constraint mode array
     [SerializeField]
@@ -29,27 +57,58 @@ public class BezierSpline : MonoBehaviour{
     }
     //Set control point mode of control point
     public void SetControlPointMode(int index, BezierControlPointMode mode){
-        modes[(index+1)/3]=mode;
-        EnforceMode(index);
+        int modeIndex=(index+1)/3;
+        modes[modeIndex]=mode;
+        //Set modes for beginning/end if spline is loop
+        if(loop){
+            if(modeIndex == 0){
+                modes[modes.Length-1]=mode;
+            }
+            else if(modeIndex==modes.Length-1){
+                modes[0] = mode;
+            }
+        }
+        EnforceConstraint(index);
+    }
+    //Looped spline option
+    [SerializeField]
+    private bool loop;
+    public bool Loop{
+        get{
+            return loop;
+        }
+        set{
+            loop = value;
+            if(value==true){
+                modes[modes.Length-1]=modes[0];
+                SetControlPoint(0,points[0]);
+            }
+        }
     }
     //Enforce Constraints on control points
-    private void EnforceMode(int index){
+    private void EnforceConstraint(int index){
         int modeIndex = (index+1)/3;
         BezierControlPointMode mode = modes[modeIndex];
         //if free mode or not constructed enforce no constraints
-        if(mode==BezierControlPointMode.Free||modeIndex==0||modeIndex==modes.Length-1){
+        if(mode==BezierControlPointMode.Free||!loop&&(modeIndex==0||modeIndex==modes.Length-1)){
             return;
         }
-        //sort index of bezier control points to be constrained
+        //sort index of bezier control points to be constrained with loop wrapping
         int middleIndex = modeIndex*3;
         int fixedIndex, enforcedIndex;
+        //forwards
         if(index<=middleIndex){
             fixedIndex=middleIndex-1;
+            if(fixedIndex<0) fixedIndex=points.Length-2;
             enforcedIndex=middleIndex+1;
+            if(enforcedIndex>=points.Length) enforcedIndex=1;
         }
+        //backwards
         else{
             fixedIndex=middleIndex+1;
+            if(fixedIndex>=points.Length) fixedIndex=1;
             enforcedIndex=middleIndex-1;
+            if(enforcedIndex<0) enforcedIndex=points.Length-2;
         }
         //Middle control point vertex position
         Vector3 middle=points[middleIndex];
@@ -129,5 +188,13 @@ public class BezierSpline : MonoBehaviour{
         //Add control point mode to array
         Array.Resize(ref modes, modes.Length+1);
         modes[modes.Length-1]=modes[modes.Length-2];
+        //Enforce constraints
+        EnforceConstraint(points.Length-4);
+        //Wrap end of looped splines
+        if (loop) {
+            points[points.Length-1]=points[0];
+            modes[modes.Length-1]=modes[0];
+            EnforceConstraint(0);
+        }
     }
 }
