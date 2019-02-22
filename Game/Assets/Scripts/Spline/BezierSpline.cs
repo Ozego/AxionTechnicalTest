@@ -2,15 +2,37 @@
 using System;
 
 public class BezierSpline : MonoBehaviour{
-    //Vertex array
-    public Vector3[] points;
-    //Single 4 vertex bezier curve spline initiation
+    //Control point vertex array
+    [SerializeField]
+    private Vector3[] points;
+    //Read control point array lenght
+    public int ControlPointCount{
+        get{
+            return points.Length;
+        }
+    }
+    //Read control point vertex
+    public Vector3 GetControlPoint (int index){
+        return points[index];
+    }
+    //Set control point vertex
+    public void SetControlPoint (int index, Vector3 point){
+        points[index]=point;
+    }
+    //Control point mode array
+    [SerializeField]
+    private BezierControlPointMode[] modes;
+    //Single 4 vertex control point bezier curve spline initiation
     public void Reset(){
         points =  new Vector3[]{
             new Vector3(1f,0f,0f),
             new Vector3(2f,0f,0f),
             new Vector3(3f,0f,0f),
             new Vector3(4f,0f,0f)
+        };
+        modes = new BezierControlPointMode[]{
+            BezierControlPointMode.Free,
+            BezierControlPointMode.Free
         };
     }
     //Worldspace position at point t along spline
@@ -55,6 +77,7 @@ public class BezierSpline : MonoBehaviour{
     }
     //Add four vertex bezier curve to spline
     public void AddCurve(){
+        //Add vertecies to array
         Vector3 point = points[points.Length-1];
         Array.Resize(ref points, points.Length+3);
         point.x+=1f;
@@ -63,5 +86,16 @@ public class BezierSpline : MonoBehaviour{
         points[points.Length-2]=point;
         point.x+=1f;
         points[points.Length-1]=point;
+        //Add control point mode to array
+        Array.Resize(ref modes, modes.Length+1);
+        modes[modes.Length-1]=modes[modes.Length-2];
+    }
+    //Get control point mode of control point
+    public BezierControlPointMode GetControlPointMode(int index){
+        return modes[(index+1)/3];
+    }
+    //Set control point mode of control point
+    public void SetControlPointMode(int index, BezierControlPointMode mode){
+        modes[(index+1)/3]=mode;
     }
 }
