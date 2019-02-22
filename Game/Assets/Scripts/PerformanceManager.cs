@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -13,7 +12,7 @@ public class PerformanceManager : MonoBehaviour
     public float SampleMargin = 5f;
     [Tooltip("Interval in seconds between quality checks.")]
     public float CheckInterval = 0.5f;
-
+    
     private ReflectionProbe[] reflectionProbes;
 
     void Awake(){
