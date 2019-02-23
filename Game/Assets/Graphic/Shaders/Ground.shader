@@ -16,7 +16,8 @@
             #pragma vertex vert
             #pragma fragment frag
             #pragma multi_compile_fwdbase
-             
+            // make fog work
+            #pragma multi_compile_fog
             #include "UnityCG.cginc"
             #include "Lighting.cginc"
             #include "AutoLight.cginc"
@@ -41,6 +42,8 @@
                 float2 uv : TEXCOORD0; //2D textures here as well
                 //Fragment Shadow Coordinates
                 SHADOW_COORDS(1) //Let shaderlab compiler take care of shadow coordinates
+                //fog coordinates
+                UNITY_FOG_COORDS(2)
                 //Fragment World Position
                 float4 pos : SV_POSITION; //4 component position
                 //Fragment Normal Direction
@@ -62,6 +65,8 @@
                 o.normal = v.normal;
                 //transfer shadow coordinates
                 TRANSFER_SHADOW(o)
+                //transfer fog
+                UNITY_TRANSFER_FOG(o,o.pos);
                 return o;
             }
             //Fragment Shader
@@ -99,6 +104,8 @@
                 //Apply Illumination
                 col.rgb *= lighting;
                 //Return Screen Color
+                // apply fog
+                UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;
             }
             ENDCG
