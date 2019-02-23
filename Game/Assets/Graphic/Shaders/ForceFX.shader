@@ -8,7 +8,7 @@
     }
     SubShader
     {
-        Tags { "Queue"="Transparent"  "RenderType"="Transparent" }
+        Tags {  "RenderType"="Transparent" }
         Blend One OneMinusSrcAlpha
         Cull Off Lighting Off ZWrite Off
         LOD 100
@@ -33,7 +33,7 @@
             {
                 float2 uv : TEXCOORD0;
                 float3 worldPos : TEXCOORD1;
-                UNITY_FOG_COORDS(2)
+                UNITY_FOG_COORDS(1)
                 float4 vertex : SV_POSITION;
             };
 
@@ -63,10 +63,10 @@
                 fixed4 tex = tex2D(_MainTex, fixed2(i.uv.x,clamp(0,1,i.uv.y-distortion.y*.5)));
                 fixed heightMask = smoothstep(0,.1,i.worldPos.y)*smoothstep(1,.25,i.worldPos.y);
 
-                // apply fog
-                UNITY_APPLY_FOG(i.fogCoord, col);
                 // apply transparency from texture distance channel .r 
                 col *= col.a*smoothstep(1-_t-.1,1-_t+.1,tex.r*heightMask);
+                // apply fog
+                UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;
             }
             ENDCG
