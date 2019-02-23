@@ -60,9 +60,10 @@
                 fixed4 col = _Color;
                 // sample the texture
                 fixed2 distortion = tex2D(_MainTex, fixed2(i.uv.x,i.uv.y-_Time.y*3)).gb;
+                // sample texture with distortion
                 fixed4 tex = tex2D(_MainTex, fixed2(i.uv.x,clamp(0,1,i.uv.y-distortion.y*.5)));
+                // apply mask in y coordinate
                 fixed heightMask = smoothstep(0,.1,i.worldPos.y)*smoothstep(1,.25,i.worldPos.y);
-
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 // apply transparency from texture distance channel .r 
