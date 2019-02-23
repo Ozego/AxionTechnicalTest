@@ -11,7 +11,8 @@ public class GameGUI : MonoBehaviour{
     
     void Update(){
         // Apply game statistics to terminal
-        terminal.text = string.Format("{0:0.00} FPS \n{1:0.00} BPM",1f/Time.deltaTime, BPM);
+        terminal.text = string.Format("{0:0.00} FPS \n{1:0.00} BPM",1f/Time.smoothDeltaTime, BPM);
+
     }
     // Clear input in terminal
     void Initialize(){
