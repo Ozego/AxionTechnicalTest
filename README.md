@@ -2,7 +2,7 @@
 Technical Artist Test for True Axion game studio
 Thank you for a challenging test.
 I attemped to do my best at doing all 6 tasks within the time allocated. 
- ![My image](Ozego.github.com/AxionTechnicalTest/ScreenShots/Unity_0P5AyefrOW.png)
+ ![My image](https://raw.githubusercontent.com/Ozego/AxionTechnicalTest/master/ScreenShots/Unity_0P5AyefrOW.png)
 1. There are several solutions for this depending on desired behaviour inside the game.
 I created Assets\Scripts\Animation\ArrayAnimator.cs which allows a variety of ways to animate an array of animation asyncronous.
 2. Every data in this shader is encoded as float4, this is not effecient at all in video memory. See code notation for details. there is also some garbage which calculates 1 through a ineffecient function, quite annoying.
