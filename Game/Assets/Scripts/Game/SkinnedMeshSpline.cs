@@ -9,7 +9,13 @@ using UnityEngine;
 public class SkinnedMeshSpline : MonoBehaviour{
     
     public SkinnedMeshRenderer Skin;
-    public int WallSegments = 64;
+    public float SegmentLenght = 1f;
+    private int WallSegments{
+        get{
+            float fractionalSegments = spline.EuclideanLenght/SegmentLenght;
+            return (int)fractionalSegments;
+        }
+    }
 
     private MeshFilter meshFilter;
     private MeshRenderer meshRenderer;

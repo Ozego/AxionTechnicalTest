@@ -583,7 +583,7 @@ MonoBehaviour:
     spaceCount: 2
     wordCount: 3
     linkCount: 0
-    lineCount: 1
+    lineCount: 2
     pageCount: 1
     materialCount: 1
   m_havePropertiesChanged: 0
@@ -1122,7 +1122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Skin: {fileID: 13700000, guid: bcdb7f7cab0f45646b41e8d0cc6d30ed, type: 3}
-  WallSegments: 32
+  SegmentLenght: 0.75
 --- !u!1 &368094374
 GameObject:
   m_ObjectHideFlags: 0
@@ -1974,7 +1974,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Skin: {fileID: 13700000, guid: bcdb7f7cab0f45646b41e8d0cc6d30ed, type: 3}
-  WallSegments: 32
+  SegmentLenght: 0.75
 --- !u!23 &1206656627
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2496,7 +2496,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Skin: {fileID: 13700000, guid: bcdb7f7cab0f45646b41e8d0cc6d30ed, type: 3}
-  WallSegments: 32
+  SegmentLenght: 0.75
 --- !u!114 &1792377120
 MonoBehaviour:
   m_ObjectHideFlags: 0

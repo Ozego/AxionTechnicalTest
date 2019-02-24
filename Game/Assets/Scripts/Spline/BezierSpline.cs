@@ -11,6 +11,28 @@ public class BezierSpline : MonoBehaviour{
             return points.Length;
         }
     }
+    //Calculate amount of four vertex bezier curves are in spline
+    public int CurveCount{
+        get{
+            return (points.Length-1)/3;
+        }
+    }
+    public float EuclideanLenght{
+        get{
+            float euclideanLenght = 0f;
+            for (int i = 0; i < CurveCount; i++)
+            {
+                euclideanLenght += CurveLenght(i);
+            }
+            return euclideanLenght;
+        }
+    }
+
+    public float CurveLenght(int i)
+    {
+        return Bezier.GetLenght(points[i * 3], points[i * 3 + 1], points[i * 3 + 2], points[i * 3 + 3]);
+    }
+
     //Read control point vertex
     public Vector3 GetControlPoint(int index){
         return points[index];
@@ -149,9 +171,15 @@ public class BezierSpline : MonoBehaviour{
         }
         return transform.TransformPoint(Bezier.GetPoint(points[i],points[i+1],points[i+2],points[i+3],t));
     }
+    //Worldpace position at point t along bezier indexed in spline
+    public Vector3 GetPoint(int index, float t){
+        int i=index*3;
+        t=Mathf.Clamp01(t);
+        return transform.TransformPoint(Bezier.GetPoint(points[i],points[i+1],points[i+2],points[i+3],t));
+    }
     //Derivative at point t of spline
     public Vector3 GetVelocity(float t){
-                int i;
+        int i;
         if(t>=1f){
             t=1f;
             i=points.Length-4;
@@ -164,15 +192,19 @@ public class BezierSpline : MonoBehaviour{
         }
         return transform.TransformPoint(Bezier.GetFirstDerivative(points[i],points[i+1],points[i+2],points[i+3],t))-transform.position;
     }
+    //Derivative at point t along bezier indexed in spline
+    public Vector3 GetVelocity(int index, float t){
+        int i=index*3;
+        t=Mathf.Clamp01(t);
+        return transform.TransformPoint(Bezier.GetFirstDerivative(points[i],points[i+1],points[i+2],points[i+3],t))-transform.position;
+    }
     //Get spline direction by normalized derivative
     public Vector3 GetDirection(float t){
         return GetVelocity(t).normalized;
     }
-    //Calculate amount of four vertex bezier curves are in spline
-    public int CurveCount{
-        get{
-            return (points.Length-1)/3;
-        }
+    //Get spline direction by normalized derivative
+    public Vector3 GetDirection(int index, float t){
+        return GetVelocity(index,t).normalized;
     }
     //Add four vertex bezier curve to spline
     public void AddCurve(){

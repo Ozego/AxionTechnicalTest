@@ -36,6 +36,10 @@ public class Bezier{
             6f*oneMinusT*t*(p2-p1)+
             3f*t*t*(p3-p2);
     }
+    //Four vertex bezier aproximate lenght
+    public static float GetLenght(Vector3 p0,Vector3 p1,Vector3 p2, Vector3 p3){
+        return (Vector3.Distance(p0,p3)+Vector3.Distance(p0,p1)+Vector3.Distance(p1,p2)+Vector3.Distance(p2,p3))/2f;
+    }
 }
 //Control Point Constraint Modes
 public enum BezierControlPointMode{
