@@ -8,11 +8,11 @@ I attemped to do my best at doing all 6 tasks within the time allocated.
 3. Added shadow pass at Line 14. I also noticed some misbehaving fog.
 4. Tools\Ozego\MaterialAssigner
     Search for gameobject name to replace material tool.
-    I advice against this metho; it is better to manage visuals with prefab variations. I included realtime reflection example since it requires reflection probe. Trail renderer is also needed for effect in task 5.
+    I advice against this method; it is adviced to manage visuals with prefab variations. I included realtime reflection example since it requires reflection probe. Trail renderer is also needed for effect in task 5.
 5. Assets/Prefabs/ImpactFX.prefab
     Blast effect in use in test scene.
 6. Assets/Prefabs/Walls.prefab
     Simple spline walls.
-    I based my design on baking a skinned mesh following a spline to a static mesh. Easy for fast walls. Wall rig can be foun in blender files.
+    I based my design on baking a skinned mesh following a spline to a static mesh. Easy for fast walls. Wall rig can be found in blender files.
 
 https://github.com/Ozego/AxionTechnicalTest
