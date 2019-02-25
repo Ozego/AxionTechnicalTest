@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEditor;
-using System;
 
 //Editor for spline creation
 [CustomEditor(typeof(BezierSpline))]
